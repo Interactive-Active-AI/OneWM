@@ -10,9 +10,11 @@ Weiyang Jin, Jiwen Yu, Yiming Li, Cewu Lu, Lixin Yang†, Xihui Liu†
 MMLab@HKU · MVIG@SJTU · THU · SII · UCAS · IAAI Team<br>
 <sub>* Equal contribution. † Corresponding authors.</sub>
 
-**[Project Page](https://selen-suyue.github.io/OneWMNet/) · [Paper](assets/OneWM.pdf) · [Demos](https://selen-suyue.github.io/OneWMNet/#experiments)**
+**[Project Page](https://selen-suyue.github.io/OneWMNet/) · [Paper](assets/OneWM-preview.pdf) · [Demos](https://selen-suyue.github.io/OneWMNet/#experiments)**
 
 **Code coming soon.**
+
+[Original full-resolution PDF](assets/OneWM.pdf)
 
 </div>
 
