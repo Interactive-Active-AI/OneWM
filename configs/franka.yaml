@@ -1,0 +1,133 @@
+backbone:
+  type: wan22_5b
+  pretrained_model_id: checkpoints/Wan2.2-TI2V-5B
+  load_text_encoder: false
+  tokenizer_max_len: 128
+framework:
+  type: mot
+  action_dim: 16
+  action_gripper_dim: 7
+  action_gripper_dims:
+  - 7
+  - 15
+  chunk_size: 32
+  action_expert_hidden_dim: 1024
+  action_expert_use_gradient_checkpointing: true
+  action_expert_init_from: checkpoints/action_dit_init.pt
+  action_expert_head_init: random
+  mot_checkpoint_mixed_attn: true
+  proprio_dim: 16
+  state_conditioning: action_post_mot
+  state_token_dim: 16
+  state_num_tokens: 1
+  state_token_semantics: legacy
+  state_dropout_prob: 0.35
+  state_fusion_num_heads: 8
+  action_video_conditioning: first_frame
+  video_clean_prefix_latent_steps: 1
+  action_cached_aligned_mask: true
+  action_clean_prefix_enabled: true
+  action_clean_prefix_prob_none: 0.6
+  action_clean_prefix_prob_partial: 0.25
+  action_clean_prefix_prob_full: 0.15
+  action_clean_prefix_initial_prob_none: 0.6
+  action_clean_prefix_initial_prob_partial: 0.25
+  action_clean_prefix_initial_prob_full: 0.15
+  action_clean_prefix_curriculum_start_fraction: 0.0
+  action_clean_prefix_warmup_fraction: 0.0
+  action_clean_prefix_boundary_ratio: 0.6
+  action_clean_prefix_jitter: 2
+  action_clean_prefix_jitter_weights:
+  - 0.1
+  - 0.15
+  - 0.5
+  - 0.15
+  - 0.1
+  video_scheduler:
+    num_train_timesteps: 1000
+    train_shift: 5.0
+    infer_shift: 5.0
+    stratified_timestep_sampling: true
+  action_scheduler:
+    num_train_timesteps: 1000
+    train_shift: 5.0
+    infer_shift: 5.0
+    stratified_timestep_sampling: true
+  loss_lambda_video: 0.1
+  loss_lambda_action: 1.0
+training:
+  output_dir: outputs/franka
+  learning_rate: 5.0e-06
+  video_learning_rate: 5.0e-06
+  action_learning_rate: 5.0e-05
+  weight_decay: 0.01
+  batch_size: 12
+  gradient_accumulation_steps: 1
+  expected_global_batch_size: 96
+  max_steps: null
+  num_epochs: 30
+  mixed_precision: bf16
+  max_grad_norm: 0.5
+  skip_nonfinite_updates: false
+  log_every: 10
+  save_every: 1000
+  eval_every: 1000
+  eval_num_inference_steps: 10
+  eval_max_samples: 810
+  eval_video_max_samples: 0
+  eval_sample_seed: 42
+  seed: 42
+  lr_scheduler_type: cosine_with_min_lr
+  min_lr: 5.0e-07
+  warmup_steps: 500
+  warmup_start_factor: 0.01
+  strategy: full
+  save_total_limit: null
+  num_workers: 4
+  dataloader_timeout_seconds: 300
+  wandb_enabled: false
+  wandb_required: false
+  wandb_project: OneWM
+  wandb_run_name: null
+  checkpoint_metadata: {}
+data:
+  dataset_type: franka_v3
+  root: data/franka
+  dataset_dirs:
+  - data/franka/prepare_breakfast
+  - data/franka/put_block_in_drawer
+  - data/franka/stack_blocks
+  split_manifest: data/franka/assets/split_manifest.json
+  video_keys:
+  - observation.images.middle_zed
+  - observation.images.left_camera
+  - observation.images.right_camera
+  video_size:
+  - 224
+  - 672
+  concat_multi_camera: franka_letterbox_strip
+  num_frames: 33
+  action_freq_ratio: 4
+  video_augmentation_enabled: true
+  eval_video_augmentation_enabled: false
+  video_augmentation_probability: 0.5
+  video_random_crop_ratio: 0.98
+  video_brightness: 0.15
+  video_contrast: 0.15
+  video_saturation: 0.1
+  video_hue: 0.0
+  action_representation: absolute_joint
+  state_representation: absolute_joint
+  normalize_actions: true
+  normalize_states: true
+  action_norm_mode: q01q99
+  state_norm_mode: q01q99
+  action_stats_path: data/franka/assets/train_stats.json
+  state_stats_path: data/franka/assets/train_stats.json
+  text_len: 128
+  text_embedding_cache_dir: data/franka/assets/text_cache
+  val_split: 0.005
+  val_split_seed: 42
+inference:
+  num_inference_steps: 10
+  seed: 42

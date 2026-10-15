@@ -1,0 +1,23 @@
+OneWM
+Copyright 2026 OneWM Contributors
+
+OneWM-specific code is distributed under the Apache License, Version 2.0.
+
+Wan2.2 components
+The self-contained T5, VAE and Wan-compatible transformer implementation in
+onewm/backbone/wan22.py and onewm/modules/wan_block.py is adapted from Wan2.2.
+Upstream: https://github.com/Wan-Video/Wan2.2
+Copyright 2024-2025 The Alibaba Wan Team Authors. All rights reserved.
+License: Apache-2.0; see licenses/Wan2.2-Apache-2.0.txt.
+The OneWM versions modify loading and expose joint video/action attention.
+
+Fast-WAM
+The MoT orchestration, ActionDiT initialization and flow scheduling follow
+Fast-WAM implementations and conventions, as indicated in source comments.
+Upstream: https://github.com/yuantianyuan01/FastWAM
+Copyright (c) 2026 The FastWAM Authors.
+License: MIT; the complete notice is retained in licenses/FastWAM-MIT.txt.
+
+RoboCasa365, robosuite and LIBERO are installed separately from their upstream
+repositories. Their licenses and asset/data terms remain with those projects.
+Model weights and datasets are obtained separately and retain their own terms.

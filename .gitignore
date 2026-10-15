@@ -1,0 +1,41 @@
+# Local data, checkpoints and generated output
+/data/
+/checkpoints/
+/outputs/
+/runs/
+/logs/
+/wandb/
+/third_party/
+*.pt
+*.pth
+*.bin
+*.ckpt
+*.safetensors
+*.npz
+*.npy
+*.hdf5
+*.h5
+*.parquet
+*.log
+*.jsonl
+# Credentials and machine configuration
+.env
+.env.*
+!.env.example
+.netrc
+.ssh/
+*.pem
+*.key
+.vscode/
+.idea/
+# Python build products and environments
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.DS_Store

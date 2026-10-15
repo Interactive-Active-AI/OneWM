@@ -1,0 +1,14 @@
+compute_environment: LOCAL_MACHINE
+debug: false
+distributed_type: DEEPSPEED
+deepspeed_config:
+  deepspeed_config_file: configs/deepspeed/zero2.json
+  zero3_init_flag: false
+  deepspeed_multinode_launcher: standard
+mixed_precision: null
+main_training_function: main
+num_machines: 2
+num_processes: 16
+rdzv_backend: static
+same_network: true
+use_cpu: false

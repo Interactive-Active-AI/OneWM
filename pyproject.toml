@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "onewm"
+version = "0.1.0"
+description = "OneWM: unified causal world and action modeling"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE", "licenses/*"]
+dependencies = [
+  "torch>=2.6,<3", "torchvision>=0.21,<1", "numpy>=1.24,<3",
+  "einops>=0.7", "ftfy>=6.1", "pyarrow>=14", "PyYAML>=6",
+  "safetensors>=0.4", "sentencepiece>=0.2", "transformers>=4.40,<5",
+]
+
+[project.optional-dependencies]
+train = ["accelerate>=1", "av>=12.3", "deepspeed>=0.15", "ninja>=1.11"]
+deploy = ["av>=12.3", "msgpack>=1", "websockets>=12,<16", "Pillow>=10", "imageio>=2.34"]
+logging = ["wandb>=0.16"]
+lora = ["peft>=0.10"]
+
+[project.urls]
+Repository = "https://github.com/Interactive-Active-AI/OneWM"
+Project = "https://selen-suyue.github.io/OneWMNet/"
+
+[tool.setuptools.packages.find]
+include = ["onewm*", "deploy*"]
+exclude = ["tests*", "work*", "outputs*", "third_party*"]

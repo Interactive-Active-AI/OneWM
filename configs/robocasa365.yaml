@@ -1,0 +1,168 @@
+backbone:
+  type: wan22_5b
+  pretrained_model_id: checkpoints/Wan2.2-TI2V-5B
+  load_text_encoder: false
+  tokenizer_max_len: 128
+framework:
+  type: mot
+  action_dim: 12
+  action_gripper_dim: 6
+  action_gripper_dims:
+  - 6
+  - 11
+  chunk_size: 16
+  proprio_dim: null
+  state_conditioning: action_post_mot
+  state_token_dim: 14
+  state_num_tokens: 4
+  state_token_semantics: history
+  state_dropout_prob: 0.15
+  state_null_mode: learned
+  state_fusion_num_heads: 8
+  action_video_conditioning: clean_prefix
+  video_clean_prefix_latent_steps: 2
+  action_clean_prefix_enabled: true
+  action_clean_prefix_prob_none: 0.6
+  action_clean_prefix_prob_partial: 0.25
+  action_clean_prefix_prob_full: 0.15
+  action_clean_prefix_boundary_ratio: 0.6
+  action_clean_prefix_jitter: 2
+  action_clean_prefix_jitter_weights:
+  - 0.1
+  - 0.15
+  - 0.5
+  - 0.15
+  - 0.1
+  action_clean_prefix_curriculum_start_fraction: 0.0
+  action_clean_prefix_warmup_fraction: 0.0
+  action_clean_prefix_initial_prob_none: 0.6
+  action_clean_prefix_initial_prob_partial: 0.25
+  action_clean_prefix_initial_prob_full: 0.15
+  mot_checkpoint_mixed_attn: true
+  action_expert_hidden_dim: 1024
+  action_expert_use_gradient_checkpointing: true
+  action_expert_init_from: checkpoints/action_dit_init.pt
+  action_expert_head_init: random
+  video_scheduler:
+    num_train_timesteps: 1000
+    train_shift: 5.0
+    infer_shift: 5.0
+    stratified_timestep_sampling: true
+  action_scheduler:
+    num_train_timesteps: 1000
+    train_shift: 5.0
+    infer_shift: 5.0
+    stratified_timestep_sampling: true
+  loss_lambda_video: 1.0
+  loss_lambda_action: 1.0
+training:
+  output_dir: outputs/robocasa365
+  learning_rate: 1.0e-05
+  video_learning_rate: 1.0e-05
+  action_learning_rate: 0.0001
+  weight_decay: 0.01
+  batch_size: 4
+  gradient_accumulation_steps: 4
+  expected_global_batch_size: 128
+  num_epochs: 1000
+  max_steps: 120000
+  mixed_precision: bf16
+  max_grad_norm: 0.5
+  skip_nonfinite_updates: true
+  max_consecutive_nonfinite_updates: 3
+  log_every: 10
+  save_every: 1000
+  eval_every: 1000
+  eval_num_inference_steps: 10
+  eval_max_samples: 128
+  eval_video_max_samples: 16
+  eval_sample_seed: 42
+  seed: 42
+  lr_scheduler_type: cosine_with_min_lr
+  warmup_steps: null
+  warmup_ratio: 0.1
+  warmup_start_factor: 0.01
+  min_lr: 1.0e-06
+  num_workers: 4
+  strategy: full
+  save_total_limit: null
+  wandb_enabled: false
+  wandb_required: false
+  wandb_project: OneWM
+  wandb_run_name: null
+  checkpoint_metadata:
+    benchmark_id: robocasa365_v1.0.1
+    dataset: human300_pretrain_human_only
+    data_contract_version: rc365_xiaomi14_action12_v1
+    view_layout: left_sep16_wrist_sep16_right_256x800_v1
+    history_offsets:
+    - -6
+    - -4
+    - -2
+    - 0
+    clean_prefix_latents: 2
+    action_horizon: 16
+data:
+  dataset_type: robocasa365
+  root: data/robocasa365/pretrain
+  video_key: observation.images.robot0_agentview_left
+  video_keys:
+  - observation.images.robot0_agentview_left
+  - observation.images.robot0_eye_in_hand
+  - observation.images.robot0_agentview_right
+  concat_multi_camera: robocasa365_strip
+  video_size:
+  - 256
+  - 800
+  view_separator_width: 16
+  view_separator_value: 128
+  video_augmentation_enabled: true
+  eval_video_augmentation_enabled: false
+  video_augmentation_probability: 0.4
+  video_random_crop_ratio: 0.95
+  video_brightness: 0.2
+  video_contrast: 0.2
+  video_saturation: 0.2
+  video_hue: 0.05
+  action_key: action
+  state_key: observation.state
+  action_representation: xiaomi_ee_base_12d
+  state_representation: xiaomi_ee_base_14d_history4
+  action_binary_dims:
+  - 6
+  - 11
+  num_frames: 13
+  observation_history_offsets:
+  - -6
+  - -4
+  - -2
+  - 0
+  repeat_current_for_vae_alignment: 1
+  video_future_offsets:
+  - 2
+  - 4
+  - 6
+  - 8
+  - 10
+  - 12
+  - 14
+  - 16
+  action_freq_ratio: 1
+  text_len: 128
+  text_embedding_cache_dir: data/robocasa365/assets/text_cache
+  text_prompt_template: 'A video recorded from a robot''s point of view executing
+    the following instruction: {task}'
+  text_cache_encoder_id: wan22ti2v5b
+  normalize_actions: true
+  action_norm_mode: zscore
+  action_stats_path: data/robocasa365/assets/stats.json
+  normalize_states: true
+  state_norm_mode: zscore
+  state_stats_path: data/robocasa365/assets/stats.json
+  val_split: 0.01
+  val_split_seed: 42
+  expected_num_tasks: 300
+  require_complete_dataset: true
+inference:
+  num_inference_steps: 10
+  seed: 42
