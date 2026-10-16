@@ -10,7 +10,7 @@ Weiyang Jin, Jiwen Yu, Yiming Li, Cewu Lu, Lixin Yang†, Xihui Liu†
 MMLab@HKU · MVIG@SJTU · THU · SII · UCAS · IAAI Team<br>
 <sub>* Equal contribution. † Corresponding authors.</sub>
 
-**[Project Page](https://selen-suyue.github.io/OneWMNet/) · [Paper](assets/OneWM-preview.pdf) · [Demos](https://selen-suyue.github.io/OneWMNet/#experiments)**
+**[Project Page](https://selen-suyue.github.io/OneWMNet/) · [arXiv](https://arxiv.org/abs/2610.21095) · [PDF](https://arxiv.org/pdf/2610.21095) · [Demos](https://selen-suyue.github.io/OneWMNet/#experiments)**
 
 **Training and deployment code for LIBERO, RoboCasa365 and dual Franka.**
 
@@ -185,10 +185,10 @@ retained license texts are listed in [NOTICE](NOTICE). We acknowledge
 If you find this work useful, please cite:
 
 ```bibtex
-@misc{su2026onewm,
-  title  = {Can World and Action Modeling Benefit Each Other under Unified Causal Training?},
-  author = {Yue Su and Bokai Lin and Xinkai Wang and Chubin Zhang and Xiangnan Wu and Kuan Zhang and Weiyang Jin and Jiwen Yu and Yiming Li and Cewu Lu and Lixin Yang and Xihui Liu},
-  year   = {2026},
-  url    = {https://github.com/Interactive-Active-AI/OneWM}
+@article{OneWM,
+  title={Can World and Action Modeling Benefit Each Other under Unified Causal Training?},
+  author={Yue Su and Bokai Lin and Xinkai Wang and Chubin Zhang and Xiangnan Wu and Kuan Zhang and Weiyang Jin and Jiwen Yu and Yiming Li and Cewu Lu and Lixin Yang and Xihui Liu},
+  journal={arXiv preprint arXiv:2610.21095},
+  year={2026}
 }
 ```
